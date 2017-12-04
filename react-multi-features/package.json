@@ -1,0 +1,108 @@
+{
+  "name": "@petal/react-multi-features",
+  "version": "0.0.4",
+  "description": "Set of cross-platform React components",
+  "author": "Petal Engineering",
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "jsnext:main": "./es/index.js",
+  "scripts": {
+    "clean": "rimraf dist lib es",
+    "build": "npm run clean && npm run build:lib && npm run build:es && npm run build:umd && npm run build:umd:min && cpx 'src/fonts/**' lib/fonts/ -u && cpx 'src/fonts/**' es/fonts/ -u",
+    "build:lib": "babel src --out-dir lib --ignore __tests__",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore __tests__",
+    "build:flow": "cpx 'src/**/*.js.flow' lib -u && cpx 'src/**/*.js.flow' es -u",
+    "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/components.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/components.min.js",
+    "prepublishOnly": "npm run build",
+    "start": "cross-env NODE_ENV=development node examples/build/scripts/start",
+    "test": "jest -i --coverage --bail",
+    "test:watch": "jest --watch",
+    "storybook": "start-storybook start -p 6006",
+    "build-storybook": "build-storybook",
+    "flow:libdefs": "flow-typed install --ignoreDeps peer",
+    "flow:coverage": "flow-coverage-report -i 'src/**/*.js' -t html -t json -t text",
+    "format": "prettier-eslint --write \"src/**/*.js\"",
+    "cp:to:mobile": "yarn && yarn run clean && yarn run build:lib && rimraf '../mobile-ui/node_modules/@petal/js-ui-components/lib' && cpx './lib/**/*' '../mobile-ui/node_modules/@petal/js-ui-components/lib' -u"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petal-engineering/react-multi-project/react-multi-features"
+  },
+  "jest": {
+    "transform": {
+      "\\.(ts|js)x?$": "babel-jest"
+    },
+    "resetModules": false,
+    "globals": {
+      "__API__": "globally.set.api.com"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/tests/jest-setup.js",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testRegex": "\\.test\\.(ts|js)x?$",
+    "moduleNameMapper": {
+      "react-native": "react-native-web",
+      "styled-components/native": "styled-components"
+    }
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16",
+    "react-native": "^0.48.4",
+    "react-native-web": "^0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-styled-components": "^1.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-runtime": "^6.20.0",
+    "cpx": "^1.5.0",
+    "cross-env": "^5.0.5",
+    "eslint-loader": "^1.9.0",
+    "file-loader": "^0.11.1",
+    "react": "^16",
+    "react-addons-test-utils": "^16.0.0-alpha",
+    "react-dom": "^16",
+    "react-native-web": "^0.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.0",
+    "react-select": "^1.0.0-rc.5",
+    "react-test-renderer": "^16",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.17.0",
+    "webpack": "^3.3.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.13.2"
+  },
+  "files": [
+    "README.md",
+    "es",
+    "lib",
+    "dist"
+  ],
+  "npmName": "@petal/js-ui-components",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ]
+}
