@@ -1,6 +1,6 @@
 {
   "name": "@petal/react-multi-features",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Set of cross-platform React components",
   "author": "Petal Engineering",
   "main": "./lib/index.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petal-engineering/react-multi-project/react-multi-features"
+    "url": "git+https://github.com/petal-engineering/react-multi"
   },
   "jest": {
     "transform": {
